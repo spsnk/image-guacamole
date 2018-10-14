@@ -56,7 +56,7 @@ body
 
 #primary_nav ul li:hover
 {
-	background:#f6f6f6
+	background:#f6f6f6;
 }
 
 #primary_nav ul ul
@@ -116,6 +116,7 @@ body
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background-color: #e5edf1;
 }
 .box:hover
 {
@@ -130,7 +131,7 @@ body
 .box__icon
 {
   width: 100%;
-  height: 80px;
+  height: 100px;
   fill: #92b0b3;
   display: block;
   margin-bottom: 40px;
@@ -147,4 +148,49 @@ body
 
 .box.is-dragover {
   background-color: #92b0b3;
+}
+
+.box input
+{
+  display:none;
+}
+.box img
+{
+  display: none;
+  height: 100px;
+  margin: auto auto 40px auto;
+}
+
+#img_1
+{ 
+  float: left;
+  width: 50%;
+  height: auto;
+  padding: 10px;
+  margin: 0 5px 0 10px;
+  outline: 2px solid black;
+}
+
+#img_2
+{ 
+  float: right;
+  width: 50%;
+  height: auto;
+  padding: 10px;
+  margin: 0 10px 0 5px;
+  outline: 2px solid black;
+}
+
+.img canvas
+{
+  /*height:auto;
+  width:100%;*/
+  margin:auto;
+}
+
+#content
+{
+  display:flex;
+  width: 100vw;
+  height: calc(100vh - 50px);
 }
