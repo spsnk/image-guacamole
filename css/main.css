@@ -169,7 +169,7 @@ body
   height: auto;
   padding: 0;
   margin: 0 10px 0 10px;
-  outline: 2px solid black;
+  outline: 2px inset darkgray;
   overflow: auto;
   display: flex;
 }
@@ -199,4 +199,9 @@ body
 .close:hover
 {
   background-color: #9cf;
+}
+.box > button
+{
+  padding: 2px;
+  margin: 5px;
 }
