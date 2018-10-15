@@ -90,5 +90,10 @@ $(document).ready(function()
       loaded_image.src='#';
       $(".box__icon").show();
     });
+    $("#scroll_sync").on("click", function(e)
+    {
+      $("#img_1, #img_2").toggleClass("syncscroll").attr("name","canvas");
+      syncscroll.reset();
+    });
   }
 });
