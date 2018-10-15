@@ -56,7 +56,7 @@ body
 
 #primary_nav ul li:hover
 {
-	background:#f6f6f6;
+	background:#9cf;
 }
 
 #primary_nav ul ul
@@ -66,30 +66,30 @@ body
 	top:100%;
 	left:0;
 	background:#fff;
-	padding:0
+	padding:0;
 }
 
 #primary_nav ul ul li
 {
 	float:none;
-	width:200px
+	width:200px;
 }
 
 #primary_nav ul ul a
 {
 	line-height:120%;
-	padding:10px 15px
+	padding:10px 15px;
 }
 
 #primary_nav ul ul ul
 {
 	top:0;
-	left:100%
+	left:100%;
 }
 
 #primary_nav ul li:hover > ul
 {
-	display:block
+	display:block;
 }
 
 #content
@@ -107,16 +107,17 @@ body
 .box
 {
   width: 40vw;
-  height: 20vh;
+  height: 30vh;
   outline: 2px solid #36f;
   outline-offset: -10px;
-  padding: 100px 20px;
+  padding: 10px;
   text-align: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #e5edf1;
+  display: none;
 }
 .box:hover
 {
@@ -161,31 +162,26 @@ body
   margin: auto auto 40px auto;
 }
 
-#img_1
+.img
 { 
   float: left;
   width: 50%;
   height: auto;
-  padding: 10px;
-  margin: 0 5px 0 10px;
+  padding: 0;
+  margin: 0 10px 0 10px;
   outline: 2px solid black;
-}
-
-#img_2
-{ 
-  float: right;
-  width: 50%;
-  height: auto;
-  padding: 10px;
-  margin: 0 10px 0 5px;
-  outline: 2px solid black;
+  overflow: auto;
+  display: flex;
 }
 
 .img canvas
 {
   /*height:auto;
   width:100%;*/
-  margin:auto;
+  margin: auto;
+  display: block;
+  padding: 1px;
+  border: 1px solid black;
 }
 
 #content
@@ -193,4 +189,14 @@ body
   display:flex;
   width: 100vw;
   height: calc(100vh - 50px);
+}
+.close
+{
+  padding: 3px;
+  margin-left: calc(100% - 20px);
+}
+
+.close:hover
+{
+  background-color: #9cf;
 }

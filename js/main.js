@@ -14,7 +14,6 @@ $(document).ready(function()
   
   if (isAdvancedUpload) {
 
-    var droppedFiles = false;
     var loaded_image;
 
     $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
@@ -28,7 +27,7 @@ $(document).ready(function()
       $form.removeClass('is-dragover');
     })
     .on('drop', function(e) {
-      droppedFile = e.originalEvent.dataTransfer.files[0];
+      var droppedFile = e.originalEvent.dataTransfer.files[0];
       console.log("Dropped: " + droppedFile.name + " MIME: " + droppedFile.type);
       var fr = new FileReader();
       fr.onload = function(ev2) {
@@ -38,12 +37,31 @@ $(document).ready(function()
             console.log("Image "+droppedFile.name+" loaded");
           });
           loaded_image.src = ev2.target.result;
-          $('#preview').attr('src', loaded_image.src).css("display", "block");;
+          $('#preview').attr('src', loaded_image.src).css("display", "block");
           $(".box__icon").hide();
       };
       if(droppedFile.type.includes("image") )
       {
         fr.readAsDataURL(droppedFile);
+      }
+    });
+    $(".box__file").on("change", function(e)
+    {
+      var loadedFile = e.target.files[0]; // FileList object
+      console.log("Loaded: " + loadedFile.name + " MIME: " + loadedFile.type);
+      var fr = new FileReader();
+      fr.onload = function(ev2) {
+          loaded_image = new Image();
+          loaded_image.addEventListener("load", function() {
+            console.log("Image "+loadedFile.name+" loaded");
+          });
+          loaded_image.src = ev2.target.result;
+          $('#preview').attr('src', loaded_image.src).css("display", "block");
+          $(".box__icon").hide();
+      };
+      if(loadedFile.type.includes("image") )
+      {
+        fr.readAsDataURL(loadedFile);
       }
     });
     $("#slot1").on('click',function(e){
@@ -53,12 +71,24 @@ $(document).ready(function()
       canvas.height = loaded_image.height;
       context.drawImage(loaded_image, 0, 0);
     });
-    $("#slot2").on('click',function(e){
+    $("#slot2").on('click',function(e)
+    {
       var canvas  = document.getElementById("canvas_2");
       var context = canvas.getContext("2d");
       canvas.width = loaded_image.width;
       canvas.height = loaded_image.height;
       context.drawImage(loaded_image, 0, 0);
+    });
+    $("#open_image").on("click", function(e)
+    {
+      $(".box").show();
+    });
+    $(".close").on("click", function(e)
+    {
+      $(this).parent().hide();
+      $('#preview').attr('src','#').hide();
+      loaded_image.src='#';
+      $(".box__icon").show();
     });
   }
 });
