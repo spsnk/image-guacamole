@@ -106,9 +106,9 @@ body
 
 .box
 {
-  width: 40vw;
-  height: 30vh;
-  outline: 2px solid #36f;
+  width: 400px;
+  height: 250px;
+  outline: 1px solid #36f;
   outline-offset: -10px;
   padding: 10px;
   text-align: center;
@@ -121,7 +121,7 @@ body
 }
 .box:hover
 {
-  outline-style:dotted;
+  outline: 2px solid #36f;
 }
 .box *
 {

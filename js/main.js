@@ -14,7 +14,7 @@ $(document).ready(function()
   
   if (isAdvancedUpload) {
 
-    var loaded_image;
+    var loaded_image = new Image();
 
     $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
       e.preventDefault();
