@@ -3,6 +3,8 @@ var isAdvancedUpload = function() {
   return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
 }();
 
+var undoData;
+
 $(document).ready(function()
 {
   var image = [];
@@ -92,8 +94,17 @@ $(document).ready(function()
     });
     $("#scroll_sync").on("click", function(e)
     {
+      $(this).toggleClass("selected");
       $("#img_1, #img_2").toggleClass("syncscroll").attr("name","canvas");
       syncscroll.reset();
+    });
+    $("#binarize").on("click", function(e)
+    {
+      
+    });
+    $("#threshold_range").on("change input", function()
+    {
+      $("#threshold").val($(this).val());
     });
   }
 });

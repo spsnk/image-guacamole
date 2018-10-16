@@ -5,8 +5,8 @@
     <link href="./css/main.css" rel="stylesheet" />
     <script src="./js/jQuery.js"></script>
     <script src="./js/syncscroll.js"></script>
-    <script src="./js/main.js"></script>
     <script src="./js/image_functions.js"></script>
+    <script src="./js/main.js"></script>
   </head>
   <body>
     <nav id="primary_nav">
@@ -17,9 +17,20 @@
             <li> <a id="open_image">Open image...</a> </li>
           </ul>
         </li>
-        <li> <a>Image</a> </li>
         <li> 
-          <a>Options</a>
+          <a>Image</a> 
+          <ul>
+            <li> <a id="binarize">Binarize...</a> </li>
+          </ul>
+        </li>
+        <li> 
+          <a>Filters</a> 
+          <ul>
+            <li> <a>...</a> </li>
+          </ul>
+        </li>
+        <li> 
+          <a>Settings</a>
           <ul>
             <li> <a id="scroll_sync">Sync Scroll</a> </li>
           </ul>
@@ -50,6 +61,15 @@
       <button id="slot1">Load in slot 1</button>
       <button id="slot2">Load in slot 2</button>
       <div class="box__error">Error! <span></span>.</div>
+    </aside>
+    <aside class="dialog" id="binarize_dialog">
+      <h1>Binarize</h1>
+      <div>
+        <label>Threshold: </label>
+        <input type="range" id="threshold_range" min="0" max="255" value="127" step="1" /> 
+        <input type="number" id="threshold" value="127" />
+        <button id="apply_binarize">Apply</button>
+      <div>
     </aside>
   </body>
 </html>
