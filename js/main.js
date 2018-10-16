@@ -8,7 +8,7 @@ var undoData;
 $(document).ready(function()
 {
   var image = [];
-  var $form = $('.box');
+  var $form = $('#open_dialog');
 
   if (isAdvancedUpload) {
     $form.addClass('has-advanced-upload');
@@ -83,7 +83,7 @@ $(document).ready(function()
     });
     $("#open_image").on("click", function(e)
     {
-      $(".box").show();
+      $("#open_dialog").show();
     });
     $(".close").on("click", function(e)
     {
@@ -100,11 +100,44 @@ $(document).ready(function()
     });
     $("#binarize").on("click", function(e)
     {
-      
+      $("#binarize_dialog").show();
     });
     $("#threshold_range").on("change input", function()
     {
       $("#threshold").val($(this).val());
+    });
+    $("#binarize_apply").on("click", function()
+    {
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray.data = binarize ( $("#threshold").val(), imageArray.data );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
+    });
+    
+    $("#grayscale").on("click", function()
+    {
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray.data = grayscale ( imageArray.data );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
+    });
+    
+    
+    $("#red_c, #green_c, #blue_c").on("click", function(e)
+    {
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray.data = rgb ( imageArray.data, e.target.id[0] );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
     });
   }
 });
