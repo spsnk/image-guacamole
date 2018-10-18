@@ -7,6 +7,8 @@ var undoData;
 
 $(document).ready(function()
 {
+  $(".dialog").prepend('<svg class="close" version="1.1" viewBox="0 0 12 12" width="12" height="12" xmlns="http://www.w3.org/2000/svg"> <line x1="1" y1="11" x2="11" y2="1" stroke="blue" stroke-width="2"/><line x1="1" y1="1" x2="11" y2="11" stroke="blue" stroke-width="2"/> </svg>');
+  
   var image = [];
   var $form = $('#open_dialog');
 
@@ -128,7 +130,6 @@ $(document).ready(function()
       ctx2.putImageData(imageArray,0,0);
     });
     
-    
     $("#red_c, #green_c, #blue_c").on("click", function(e)
     {
       var imageArray = getImageArray ( document.getElementById("canvas_1") );
@@ -139,5 +140,99 @@ $(document).ready(function()
       var ctx2 = canvas2.getContext("2d");
       ctx2.putImageData(imageArray,0,0);
     });
+    
+    var histo = new Chart(document.getElementById("histograph").getContext("2d"), {
+      type: 'line',
+      data: {
+        labels: [0],
+        datasets:[{
+          label: 'rgb',
+          backgroundColor: "#000000",
+          borderColor: "#000000",
+          data: [0],
+          fill: true,
+          pointRadius: 0,
+          borderWidth: 1
+        },{
+          label: 'r',
+          backgroundColor: "#ff0000",
+          borderColor: "#ff0000",
+          data: [0],
+          fill: true,
+          pointRadius: 0,
+          borderWidth: 1
+        },{
+          label: 'g',
+          backgroundColor: "#27902e",
+          borderColor: "#27902e",
+          data: [0],
+          fill: true,
+          pointRadius: 0,
+          borderWidth: 1
+        },{
+          label: 'b',
+          backgroundColor: "#84b7ff",
+          borderColor: "#84b7ff",
+          data: [0],
+          fill: true,
+          pointRadius: 0,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        title: {
+          display: true,
+          text: 'Histogram'
+        },
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
+        },
+        scales: {
+          xAxes: [{
+            display: false,
+            scaleLabel: {
+              display: true,
+              labelString: 'Intensity Value'
+            }
+          }],
+          yAxes: [{
+            display: false,
+            scaleLabel: {
+              display: true,
+              labelString: 'Frequency'
+            }
+          }]
+        }
+      }
+    });
+    
+    $("#histogram").on("click", function(e)
+    {
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      var histodata = getHistogram ( imageArray.data );
+      
+      $("#histogram_dialog").show();
+      
+      var lab256 = [];
+      for(var i=0;i<256;i++) lab256[i] = i;
+      histo.data.labels = lab256;
+      
+      histo.data.datasets[0].data = histodata.rgb;
+      histo.data.datasets[1].data = histodata.r;
+      histo.data.datasets[2].data = histodata.g;
+      histo.data.datasets[3].data = histodata.b;
+      
+      histo.update();
+      
+      //console.log(histodata);
+    });
+    
+    
   }
 });

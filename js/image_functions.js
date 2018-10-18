@@ -45,3 +45,22 @@ function rgb ( data , color )
   }
   return data;
 }
+
+function getHistogram ( data )
+{
+  var histogram = {
+                    rgb : Array.apply(null, Array(256)).map(Number.prototype.valueOf,0),
+                    r   : Array.apply(null, Array(256)).map(Number.prototype.valueOf,0), 
+                    g   : Array.apply(null, Array(256)).map(Number.prototype.valueOf,0),
+                    b   : Array.apply(null, Array(256)).map(Number.prototype.valueOf,0)
+                  }
+  for (var i = 0; i < data.length; i += 4)
+  {
+    var avg = (data[i] + data[i + 1] + data[i + 2]) / 3; // get averague
+    histogram.rgb [ avg       ]++;
+    histogram.r   [ data[i]   ]++;
+    histogram.g   [ data[i+1] ]++;
+    histogram.b   [ data[i+2] ]++;
+  }
+  return histogram;
+}

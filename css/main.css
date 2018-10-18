@@ -245,6 +245,7 @@ body
   margin-top: -25px;
   display: block;
   font-size: 1.2em;
+  user-select: none;
 }
 
 h1:after
@@ -270,5 +271,6 @@ input[type=range]
 .dialog > div
 {
   padding: 20px;
+  min-width: 500px;
 }
 
