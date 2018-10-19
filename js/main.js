@@ -233,6 +233,31 @@ $(document).ready(function()
       //console.log(histodata);
     });
     
+    Array.prototype.reshape = function(rows, cols) {
+      var copy;
+      for (var r = 0; r < rows; r++) {
+        var row = [];
+        for (var c = 0; c < cols; c++) {
+          var i = r * cols + c;
+          if (i < this.length) {
+            row.push(this[i]);
+          }
+        }
+        copy.push(row);
+      }
+      return copy;
+    };
     
+    $("#add").on("click",function()
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      imageArray1.data = pixelAdd( imageArray1.data, imageArray2.data );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray1.width;
+      canvas2.height = imageArray1.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray1,0,0);
+    });
   }
 });

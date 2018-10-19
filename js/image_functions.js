@@ -64,3 +64,14 @@ function getHistogram ( data )
   }
   return histogram;
 }
+
+function pixelAdd ( data1, data2 )
+{
+  for (var i = 0; i < data1.length; i += 4)
+  {
+    data1[i    ] += data2[i    ]; // red
+    data1[i + 1] += data2[i + 1]; // green
+    data1[i + 2] += data2[i + 2]; // blue
+  }
+  return data1;
+}
