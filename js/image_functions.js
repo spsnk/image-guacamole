@@ -65,8 +65,12 @@ function getHistogram ( data )
   return histogram;
 }
 
-function pixelAdd ( data1, data2 )
+function pixelAdd ( image1, image2 )
 {
+  var newHeight = image1.height<image2.height?image1.height:image2.height;
+  var newWidth  = image1.width<image2.width?image1.width:image2.width;
+  var newdata = new Uint8ClampedArray( newHeight * newWidth * 4 );
+  
   for (var i = 0; i < data1.length; i += 4)
   {
     data1[i    ] += data2[i    ]; // red
