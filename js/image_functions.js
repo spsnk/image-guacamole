@@ -79,3 +79,22 @@ function pixelAdd ( image1, image2 )
   }
   return data1;
 }
+
+function get2d ( imageData )
+{
+  var buf = new ArrayBuffer(imageData.data.length);
+  var buf8 = new Uint8ClampedArray(buf);
+  var data = new Uint32Array(buf);
+  
+  var newdata = new Uint32Array( imageData.width );
+  
+  for(var i=0,index=0;i<imageData.width;i++)
+  {
+    newdata[i] = new Uint32Array( imageData.height );
+    for(var j=0;j<imageData.height;j++)
+    {
+      newdata[i][j] = data[index++];
+    }
+  }
+  return newdata;
+}
