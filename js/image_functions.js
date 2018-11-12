@@ -69,15 +69,30 @@ function pixelAdd ( image1, image2 )
 {
   var newHeight = image1.height<image2.height?image1.height:image2.height;
   var newWidth  = image1.width<image2.width?image1.width:image2.width;
-  var newdata = new Uint8ClampedArray( newHeight * newWidth * 4 );
   
-  for (var i = 0; i < data1.length; i += 4)
+  var buf1 = new ArrayBuffer(image1.data.length);
+  var data1 = new Uint32Array(buf1);
+  var buf2 = new ArrayBuffer(image2.data.length);
+  var data2 = new Uint32Array(buf2);
+  
+  var newbuf  = new ArrayBuffer( newHeight * newWidth * 4 );
+  var newbuf8 = new Uint8ClampedArray(newbuf);
+  var newdata = new Uint32Array( newbuf );
+  
+  for (var index = 0,i=0,j=0; i < newdata.length; index++)
   {
-    data1[i    ] += data2[i    ]; // red
-    data1[i + 1] += data2[i + 1]; // green
-    data1[i + 2] += data2[i + 2]; // blue
+    newdata[index] = data1[index]+data2[index];
+    i++;
+    if(i == newWidth)
+    {
+      index = ++j * newWidth;
+      i=0;
+    }
   }
-  return data1;
+  
+  var newImage = imageData(newbuf8, newWidth, newHeight);
+  
+  return newImage;
 }
 
 function get2d ( imageData )

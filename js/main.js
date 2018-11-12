@@ -252,12 +252,12 @@ $(document).ready(function()
     {
       var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
       var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
-      imageArray1 = pixelAdd( imageArray1.data, imageArray2.data );
+      var newImage = pixelAdd( imageArray1.data, imageArray2.data );
       var canvas2 = document.getElementById("canvas_2");
-      canvas2.width = imageArray1.width;
-      canvas2.height = imageArray1.height;
+      canvas2.width = newImage.width;
+      canvas2.height = newImage.height;
       var ctx2 = canvas2.getContext("2d");
-      ctx2.putImageData(imageArray1,0,0);
+      ctx2.putImageData(newImage,0,0);
     });
   }
 });
