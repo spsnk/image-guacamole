@@ -65,6 +65,25 @@ function getHistogram ( data )
   return histogram;
 }
 
+function histogram_properties ( histodata, imagedata )
+{
+  var histoprop = {
+                     p        : [],
+                     media    : 0,
+                     varianza : 0,
+                     entropia : 0,
+                     energia  : 0
+                  }
+  var total_pixels = imagedata.width * imagedata.height;
+  for(var i = 0; i < 256; i++)
+  {
+    histoprop.p[i] = histodata.rgb[i] / total_pixels;
+    histoprop.media += histodata.rgb[i];
+  }
+  histoprop.media /= total_pixels;
+  return histoprop;
+}
+
 function pixelAdd ( image1, image2 )
 {
   var newHeight = image1.height<image2.height?image1.height:image2.height;
@@ -231,15 +250,15 @@ function pixelConvolution ( image1, mask )
   {
     for (var in_co = 0; in_co < 3; in_co++, i++)
     {
-      newdata[i] =  j<0|(i%w==0)?   0:(data1[(j-1) * w + (i - 1)]) * mask[0] + 
-                    j<0?            0:(data1[(j-1) * w +  i     ]) * mask[1] + 
-                    j<0|(i+1%w==0)? 0:(data1[(j-1) * w + (i + 1)]) * mask[2] +
-                    (i%w==0)?       0:(data1[ j    * w + (i - 1)]) * mask[3] +
-                                      (data1[ j    * w +  i     ]) * mask[4] +
-                    (i+1%w==0)?     0:(data1[ j    * w + (i + 1)]) * mask[5] +
-                    j=h|(i%w==0)?   0:(data1[(j+1) * w + (i - 1)]) * mask[6] +
-                    j=h?            0:(data1[(j+1) * w +  i     ]) * mask[7] +
-                    j=h|(i+1%w==0)? 0:(data1[(j+1) * w + (i + 1)]) * mask[8];
+      newdata[i] =  j<0|(i%w==0)?    0:(data1[(j-1) * w + (i - 1)]) * mask[0] + 
+                    j<0?             0:(data1[(j-1) * w +  i     ]) * mask[1] + 
+                    j<0|(i+1%w==0)?  0:(data1[(j-1) * w + (i + 1)]) * mask[2] +
+                    (i%w==0)?        0:(data1[ j    * w + (i - 1)]) * mask[3] +
+                                       (data1[ j    * w +  i     ]) * mask[4] +
+                    (i+1%w==0)?      0:(data1[ j    * w + (i + 1)]) * mask[5] +
+                    j==h|(i%w==0)?   0:(data1[(j+1) * w + (i - 1)]) * mask[6] +
+                    j==h?            0:(data1[(j+1) * w +  i     ]) * mask[7] +
+                    j==h|(i+1%w==0)? 0:(data1[(j+1) * w + (i + 1)]) * mask[8];
     }
     newdata[i-1] = 255;
     if(i%newWidth==0)

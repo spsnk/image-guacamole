@@ -230,6 +230,8 @@ $(document).ready(function()
       
       histo.update();
       
+      var pixel_prob = histogram_properties(histodata, imageArray);
+      
       //console.log(histodata);
     });
     
