@@ -68,19 +68,26 @@ function getHistogram ( data )
 function histogram_properties ( histodata, imagedata )
 {
   var histoprop = {
-                     p        : [],
+                     P        : [],
                      media    : 0,
                      varianza : 0,
+                     asimetria: 0,
                      entropia : 0,
                      energia  : 0
                   }
   var total_pixels = imagedata.width * imagedata.height;
   for(var i = 0; i < 256; i++)
   {
-    histoprop.p[i] = histodata.rgb[i] / total_pixels;
-    histoprop.media += histodata.rgb[i];
+    histoprop.P[i] = histodata.rgb[i] / total_pixels;
+    histoprop.media += histodata.rgb[i] * histoprop.P[i];
   }
-  histoprop.media /= total_pixels;
+  for(var i = 0; i < 256; i++)
+  {
+    histoprop.varianza += Math.pow(histodata.rgb[i] - histoprop.media, 2) * histoprop.P[i];
+    histoprop.asimetria += Math.pow(histodata.rgb[i] - histoprop.media, 3) * histoprop.P[i];
+    histoprop.energia += Math.pow(histodata.P[i], 2);
+    histoprop.entropia += histodata.P[i] * Math.log2(histodata.P[i]);
+  }
   return histoprop;
 }
 
