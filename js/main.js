@@ -230,9 +230,9 @@ $(document).ready(function()
       
       histo.update();
       
-      var pixel_prob = histogram_properties(histodata, imageArray);
+      var histo_prop = histogram_properties(histodata, imageArray);
       
-      //console.log(histodata);
+      console.log(histo_prop);
     });
     
     Array.prototype.reshape = function(rows, cols) {
