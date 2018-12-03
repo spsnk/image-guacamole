@@ -83,10 +83,10 @@ function histogram_properties ( histodata, imagedata )
   }
   for(var i = 0; i < 256; i++)
   {
-    histoprop.varianza += Math.pow(histodata.rgb[i] - histoprop.media, 2) * histoprop.P[i];
+    histoprop.varianza += Math.sqrt(Math.pow(histodata.rgb[i] - histoprop.media, 2) * histoprop.P[i]);
     histoprop.asimetria += Math.pow(histodata.rgb[i] - histoprop.media, 3) * histoprop.P[i];
-    histoprop.energia += Math.pow(histodata.P[i], 2);
-    histoprop.entropia += histodata.P[i] * Math.log2(histodata.P[i]);
+    histoprop.energia += Math.pow(histoprop.P[i], 2);
+    histoprop.entropia += histoprop.P[i] * Math.log2(histoprop.P[i]);
   }
   return histoprop;
 }
