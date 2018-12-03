@@ -248,7 +248,7 @@ $(document).ready(function()
       return copy;
     };
     
-    $("#add").on("click",function()
+    $("#aadd").on("click",function()
     {
       var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
       var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
@@ -259,5 +259,99 @@ $(document).ready(function()
       var ctx2 = canvas2.getContext("2d");
       ctx2.putImageData(newImage,0,0);
     });
+    $("#asub").on("click",function()
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      var newImage = pixelSubstract( imageArray1, imageArray2 );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = newImage.width;
+      canvas2.height = newImage.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(newImage,0,0);
+    });
+    
+    $("#amul").on("click",function()
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      var newImage = pixelMultiply( imageArray1, imageArray2 );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = newImage.width;
+      canvas2.height = newImage.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(newImage,0,0);
+    });
+    
+    $("#lnot").on("click",function()
+    {
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray.data = pixelNot ( imageArray.data );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
+    });
+    
+    $("#land").on("click",function()
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      var newImage = pixelAnd( imageArray1, imageArray2 );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = newImage.width;
+      canvas2.height = newImage.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(newImage,0,0);
+    });
+    
+    $("#lor").on("click",function()
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      var newImage = pixelOr( imageArray1, imageArray2 );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = newImage.width;
+      canvas2.height = newImage.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(newImage,0,0);
+    });
+    
+    $("#lxor").on("click",function()
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      var newImage = pixelXor( imageArray1, imageArray2 );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = newImage.width;
+      canvas2.height = newImage.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(newImage,0,0);
+    });
+    
+    $("#right_move, #left_move").on("click", function(e)
+    {
+      switch(e.target.id[0])
+      {
+        case 'r':
+          var imageArray = getImageArray ( document.getElementById("canvas_1") );
+          var canvas2 = document.getElementById("canvas_2");
+          canvas2.width = imageArray.width;
+          canvas2.height = imageArray.height;
+          var ctx2 = canvas2.getContext("2d");
+          ctx2.putImageData(imageArray,0,0);
+        break;
+        case 'l':
+          var imageArray = getImageArray ( document.getElementById("canvas_2") );
+          var canvas2 = document.getElementById("canvas_1");
+          canvas2.width = imageArray.width;
+          canvas2.height = imageArray.height;
+          var ctx2 = canvas2.getContext("2d");
+          ctx2.putImageData(imageArray,0,0);
+        break;
+      }
+    });
+    
   }
 });
