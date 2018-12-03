@@ -252,7 +252,7 @@ $(document).ready(function()
     {
       var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
       var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
-      var newImage = pixelAdd( imageArray1.data, imageArray2.data );
+      var newImage = pixelAdd( imageArray1, imageArray2 );
       var canvas2 = document.getElementById("canvas_2");
       canvas2.width = newImage.width;
       canvas2.height = newImage.height;

@@ -70,27 +70,26 @@ function pixelAdd ( image1, image2 )
   var newHeight = image1.height<image2.height?image1.height:image2.height;
   var newWidth  = image1.width<image2.width?image1.width:image2.width;
   
-  var buf1 = new ArrayBuffer(image1.data.length);
+  var buf1 = image1.data.buffer;
   var data1 = new Uint32Array(buf1);
-  var buf2 = new ArrayBuffer(image2.data.length);
+  var buf2 = image2.data.buffer;
   var data2 = new Uint32Array(buf2);
   
   var newbuf  = new ArrayBuffer( newHeight * newWidth * 4 );
   var newbuf8 = new Uint8ClampedArray(newbuf);
   var newdata = new Uint32Array( newbuf );
   
-  for (var index = 0,i=0,j=0; i < newdata.length; index++)
+  for (var index1 = 0, index2 = 0,i=0,j=0; i < newdata.length;)
   {
-    newdata[index] = data1[index]+data2[index];
-    i++;
-    if(i == newWidth)
+    newdata[i++] = data1[index1++]+data2[index2++];
+    if(i%newWidth==0)
     {
-      index = ++j * newWidth;
-      i=0;
+      index1 = ++j * image1.width;
+      index2 = j * image2.width;
     }
   }
   
-  var newImage = imageData(newbuf8, newWidth, newHeight);
+  var newImage = new ImageData(newbuf8, newWidth, newHeight);
   
   return newImage;
 }
