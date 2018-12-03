@@ -90,9 +90,9 @@ $(document).ready(function()
     $(".close").on("click", function(e)
     {
       $(this).parent().hide();
-      $('#preview').attr('src','#').hide();
-      loaded_image.src='#';
-      $(".box__icon").show();
+      //$('#preview').attr('src','#').hide();
+      //loaded_image.src='#';
+      //$(".box__icon").show();
     });
     $("#scroll_sync").on("click", function(e)
     {

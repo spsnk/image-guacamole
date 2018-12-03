@@ -220,3 +220,33 @@ function pixelXor ( image1, image2 )
   
   return newImage;
 }
+
+function pixelConvolution ( image1, mask )
+{
+  var data1 = image1.data;
+  var h = image1.height;
+  var w = image1.width;
+  var newdata = new Uint8ClampedArray( h * w * 4 );
+  for (var i=0,j=0; i < newdata.length;)
+  {
+    for (var in_co = 0; in_co < 3; in_co++, i++)
+    {
+      newdata[i] =  j<0|(i%w==0)?   0:(data1[(j-1) * w + (i - 1)]) * mask[0] + 
+                    j<0?            0:(data1[(j-1) * w +  i     ]) * mask[1] + 
+                    j<0|(i+1%w==0)? 0:(data1[(j-1) * w + (i + 1)]) * mask[2] +
+                    (i%w==0)?       0:(data1[ j    * w + (i - 1)]) * mask[3] +
+                                      (data1[ j    * w +  i     ]) * mask[4] +
+                    (i+1%w==0)?     0:(data1[ j    * w + (i + 1)]) * mask[5] +
+                    j=h|(i%w==0)?   0:(data1[(j+1) * w + (i - 1)]) * mask[6] +
+                    j=h?            0:(data1[(j+1) * w +  i     ]) * mask[7] +
+                    j=h|(i+1%w==0)? 0:(data1[(j+1) * w + (i + 1)]) * mask[8];
+    }
+    newdata[i-1] = 255;
+    if(i%newWidth==0)
+    {
+      j++;
+    }
+  }
+  var newImage = new ImageData(newdata, image1.width, image1.height);
+  return newImage;
+}
