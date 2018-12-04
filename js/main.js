@@ -9,7 +9,6 @@ $(document).ready(function()
 {
   $(".dialog").prepend('<svg class="close" version="1.1" viewBox="0 0 12 12" width="12" height="12" xmlns="http://www.w3.org/2000/svg"> <line x1="1" y1="11" x2="11" y2="1" stroke="blue" stroke-width="2"/><line x1="1" y1="1" x2="11" y2="11" stroke="blue" stroke-width="2"/> </svg>');
   
-  var image = [];
   var $form = $('#open_dialog');
 
   if (isAdvancedUpload) {
@@ -108,6 +107,12 @@ $(document).ready(function()
     {
       $("#threshold").val($(this).val());
     });
+    
+    $("#mask").on("click", function(e)
+    {
+      $("#mask_dialog").show();
+    });
+    
     $("#binarize_apply").on("click", function()
     {
       var imageArray = getImageArray ( document.getElementById("canvas_1") );
@@ -354,6 +359,20 @@ $(document).ready(function()
         break;
       }
     });
-    
+    $("#mask_apply").on("click",function(e)
+    {
+      var mask_matrix = [];
+      $("[name='mask']").each(function(index)
+      {
+        mask_matrix[index] = parseInt($(this).val())  ;
+      });
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray = pixelConvolution ( imageArray, mask_matrix );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
+    });
   }
 });

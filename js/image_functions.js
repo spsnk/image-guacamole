@@ -253,26 +253,22 @@ function pixelConvolution ( image1, mask )
   var h = image1.height;
   var w = image1.width;
   var newdata = new Uint8ClampedArray( h * w * 4 );
-  for (var i=0,j=0; i < newdata.length;)
+  for (var i=0; i < newdata.length;)
   {
-    for (var in_co = 0; in_co < 3; in_co++, i++)
+    for(var inc = 0; inc < 3; inc++, i++)
     {
-      newdata[i] =  j<0|(i%w==0)?    0:(data1[(j-1) * w + (i - 1)]) * mask[0] + 
-                    j<0?             0:(data1[(j-1) * w +  i     ]) * mask[1] + 
-                    j<0|(i+1%w==0)?  0:(data1[(j-1) * w + (i + 1)]) * mask[2] +
-                    (i%w==0)?        0:(data1[ j    * w + (i - 1)]) * mask[3] +
-                                       (data1[ j    * w +  i     ]) * mask[4] +
-                    (i+1%w==0)?      0:(data1[ j    * w + (i + 1)]) * mask[5] +
-                    j==h|(i%w==0)?   0:(data1[(j+1) * w + (i - 1)]) * mask[6] +
-                    j==h?            0:(data1[(j+1) * w +  i     ]) * mask[7] +
-                    j==h|(i+1%w==0)? 0:(data1[(j+1) * w + (i + 1)]) * mask[8];
+      newdata[i] =  (data1[ i-(w*4) - 4 ]) * mask[0] + 
+                    (data1[ i-(w*4)     ]) * mask[1] + 
+                    (data1[ i-(w*4) + 4 ]) * mask[2] +
+                    (data1[ i       - 4 ]) * mask[3] +
+                    (data1[ i           ]) * mask[4] +
+                    (data1[ i       + 4 ]) * mask[5] +
+                    (data1[ i+(w*4) - 4 ]) * mask[6] +
+                    (data1[ i+(w*4)     ]) * mask[7] +
+                    (data1[ i+(w*4) + 4 ]) * mask[8];
     }
-    newdata[i-1] = 255;
-    if(i%newWidth==0)
-    {
-      j++;
-    }
+    newdata[i++] = 255;
   }
-  var newImage = new ImageData(newdata, image1.width, image1.height);
+  var newImage = new ImageData(newdata, w, h);
   return newImage;
 }
