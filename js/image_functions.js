@@ -98,7 +98,9 @@ function pixelAdd ( image1, image2 )
   var data1 = image1.data;
   var data2 = image2.data;
   var newdata = new Uint8ClampedArray( newHeight * newWidth * 4 );
-  for (var index1 = 0, index2 = 0,i=0,j=0; i < newdata.length;)
+  console.log("w:"+newWidth);
+  console.log("h:"+newHeight);
+  for (var index1 = 0, index2 = 0,i=0,j=1; i < newdata.length;)
   {
     newdata[i++] = data1[index1++] + data2[index2++];
     newdata[i++] = data1[index1++] + data2[index2++];
@@ -107,10 +109,10 @@ function pixelAdd ( image1, image2 )
     i++;
     index1++;
     index2++;
-    if(i%newWidth==0)
+    if(i%(newWidth*4)==0)
     {
-      index1 = ++j * image1.width;
-      index2 = j * image2.width;
+      index1 = ++j * image1.width * 4;
+      index2 = j * image2.width * 4;
     }
   }
   var newImage = new ImageData(newdata, newWidth, newHeight);
@@ -133,10 +135,10 @@ function pixelSubstract ( image1, image2 )
     i++;
     index1++;
     index2++;
-    if(i%newWidth==0)
+    if(i%(newWidth*4)==0)
     {
-      index1 = ++j * image1.width;
-      index2 = j * image2.width;
+      index1 = ++j * image1.width * 4;
+      index2 = j * image2.width * 4;
     }
   }
   var newImage = new ImageData(newdata, newWidth, newHeight);
@@ -160,10 +162,10 @@ function pixelMultiply ( image1, image2 )
     i++;
     index1++;
     index2++;
-    if(i%newWidth==0)
+    if(i%(newWidth*4)==0)
     {
-      index1 = ++j * image1.width;
-      index2 = j * image2.width;
+      index1 = ++j * image1.width * 4;
+      index2 = j * image2.width * 4;
     }
   }
   var newImage = new ImageData(newdata, newWidth, newHeight);
@@ -198,10 +200,10 @@ function pixelAnd ( image1, image2 )
     i++;
     index1++;
     index2++;
-    if(i%newWidth==0)
+    if(i%(newWidth*4)==0)
     {
-      index1 = ++j * image1.width;
-      index2 = j * image2.width;
+      index1 = ++j * image1.width * 4;
+      index2 = j * image2.width * 4;
     }
   }
   
@@ -227,10 +229,10 @@ function pixelOr ( image1, image2 )
     i++;
     index1++;
     index2++;
-    if(i%newWidth==0)
+    if(i%(newWidth*4)==0)
     {
-      index1 = ++j * image1.width;
-      index2 = j * image2.width;
+      index1 = ++j * image1.width * 4;
+      index2 = j * image2.width * 4;
     }
   }
   var newImage = new ImageData(newdata, newWidth, newHeight);
