@@ -285,7 +285,7 @@ function pixelDilation ( image1, mask )
   {
     for(var inc = 0; inc < 3; inc++, i++)
     {
-      if (data1[i] != 0)
+      if (data1[i] >= mask[4])
       {
         newdata[ i-(w*4) - 4 ] = 255 * mask[0] + newdata[ i-(w*4) - 4 ];
         newdata[ i-(w*4)     ] = 255 * mask[1] + newdata[ i-(w*4)     ];
@@ -300,6 +300,37 @@ function pixelDilation ( image1, mask )
     }
     newdata[i++] = 255;
   }
-  var newImage = pixelAdd ( image1, new ImageData(newdata, w, h) );
+  var newImage = new ImageData(newdata, w, h);
+  return newImage;
+}
+
+function pixelErosion ( image1, mask )
+{
+  var data1 = image1.data;
+  var h = image1.height;
+  var w = image1.width;
+  var newdata = new Uint8ClampedArray( h * w * 4 );
+  for (var i=0; i < newdata.length;)
+  {
+    for(var inc = 0; inc < 3; inc++, i++)
+    {
+      if (
+          data1[ i-(w*4) - 4 ] >= mask[0] &&
+          data1[ i-(w*4)     ] >= mask[1] &&
+          data1[ i-(w*4) + 4 ] >= mask[2] &&
+          data1[ i       - 4 ] >= mask[3] &&
+          data1[ i           ] >= mask[4] &&
+          data1[ i       + 4 ] >= mask[5] &&
+          data1[ i+(w*4) - 4 ] >= mask[6] &&
+          data1[ i+(w*4)     ] >= mask[7] &&
+          data1[ i+(w*4) + 4 ] >= mask[8]
+         )
+         {
+           newdata[i] = 255;
+         }
+    }
+    newdata[i++] = 255;
+  }
+  var newImage = new ImageData(newdata, w, h);
   return newImage;
 }

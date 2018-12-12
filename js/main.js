@@ -363,6 +363,23 @@ $(document).ready(function()
         break;
       }
     });
+    $("#exc").on("click", function(e)
+    {
+      var imageArray1 = getImageArray ( document.getElementById("canvas_1") );
+      var imageArray2 = getImageArray ( document.getElementById("canvas_2") );
+      
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray1.width;
+      canvas2.height = imageArray1.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray1,0,0);
+      
+      var canvas2 = document.getElementById("canvas_1");
+      canvas2.width = imageArray2.width;
+      canvas2.height = imageArray2.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray2,0,0);
+    });
     $("#mask_apply").on("click",function(e)
     {
       var mask_matrix = [];
@@ -388,6 +405,21 @@ $(document).ready(function()
       });
       var imageArray = getImageArray ( document.getElementById("canvas_1") );
       imageArray = pixelDilation ( imageArray, mask_matrix );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
+    });
+    $("#erosion_apply").on("click",function(e)
+    {
+      var mask_matrix = [];
+      $("[name='demask']").each(function(index)
+      {
+        mask_matrix[index] = parseInt($(this).val())  ;
+      });
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray = pixelErosion ( imageArray, mask_matrix );
       var canvas2 = document.getElementById("canvas_2");
       canvas2.width = imageArray.width;
       canvas2.height = imageArray.height;
