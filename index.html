@@ -57,6 +57,12 @@
           </ul>
         </li>
         <li> 
+          <a>Morphology</a> 
+          <ul>
+            <li> <a id="demask">Enter mask</a> </li>
+          </ul>
+        </li>
+        <li> 
           <a>Settings</a>
           <ul>
             <li> <a id="scroll_sync">Sync Scroll</a> </li>
@@ -115,6 +121,22 @@
         <input type="number" name="mask" value="0" />
         <input type="number" name="mask" value="1" /> <br/>
         <button id="mask_apply">Apply</button>
+      </div>
+    </aside>
+    <aside id="demask_dialog" class="dialog">
+      <h1>Enter Mask</h1>
+      <div>
+        <input type="number" name="demask" value="0" />
+        <input type="number" name="demask" value="1" />
+        <input type="number" name="demask" value="0" /> <br/>
+        <input type="number" name="demask" value="1" />
+        <input type="number" name="demask" value="1" />
+        <input type="number" name="demask" value="1" /> <br/>
+        <input type="number" name="demask" value="0" />
+        <input type="number" name="demask" value="1" />
+        <input type="number" name="demask" value="0" /> <br/>
+        <button id="dilation_apply">Dilation</button>
+        <button id="erosion_apply">Erosion</button>
       </div>
     </aside>
   </body>

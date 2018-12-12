@@ -112,6 +112,10 @@ $(document).ready(function()
     {
       $("#mask_dialog").show();
     });
+    $("#demask").on("click", function(e)
+    {
+      $("#demask_dialog").show();
+    });
     
     $("#binarize_apply").on("click", function()
     {
@@ -368,6 +372,22 @@ $(document).ready(function()
       });
       var imageArray = getImageArray ( document.getElementById("canvas_1") );
       imageArray = pixelConvolution ( imageArray, mask_matrix );
+      var canvas2 = document.getElementById("canvas_2");
+      canvas2.width = imageArray.width;
+      canvas2.height = imageArray.height;
+      var ctx2 = canvas2.getContext("2d");
+      ctx2.putImageData(imageArray,0,0);
+    });
+    
+    $("#dilation_apply").on("click",function(e)
+    {
+      var mask_matrix = [];
+      $("[name='demask']").each(function(index)
+      {
+        mask_matrix[index] = parseInt($(this).val())  ;
+      });
+      var imageArray = getImageArray ( document.getElementById("canvas_1") );
+      imageArray = pixelDilation ( imageArray, mask_matrix );
       var canvas2 = document.getElementById("canvas_2");
       canvas2.width = imageArray.width;
       canvas2.height = imageArray.height;

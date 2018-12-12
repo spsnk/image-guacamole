@@ -274,3 +274,32 @@ function pixelConvolution ( image1, mask )
   var newImage = new ImageData(newdata, w, h);
   return newImage;
 }
+
+function pixelDilation ( image1, mask )
+{
+  var data1 = image1.data;
+  var h = image1.height;
+  var w = image1.width;
+  var newdata = new Uint8ClampedArray( h * w * 4 );
+  for (var i=0; i < newdata.length;)
+  {
+    for(var inc = 0; inc < 3; inc++, i++)
+    {
+      if (data1[i] != 0)
+      {
+        newdata[ i-(w*4) - 4 ] = 255 * mask[0] + newdata[ i-(w*4) - 4 ];
+        newdata[ i-(w*4)     ] = 255 * mask[1] + newdata[ i-(w*4)     ];
+        newdata[ i-(w*4) + 4 ] = 255 * mask[2] + newdata[ i-(w*4) + 4 ];
+        newdata[ i       - 4 ] = 255 * mask[3] + newdata[ i       - 4 ];
+        newdata[ i           ] = 255 * mask[4];
+        newdata[ i       + 4 ] = 255 * mask[5];
+        newdata[ i+(w*4) - 4 ] = 255 * mask[6];
+        newdata[ i+(w*4)     ] = 255 * mask[7];
+        newdata[ i+(w*4) + 4 ] = 255 * mask[8];
+      }
+    }
+    newdata[i++] = 255;
+  }
+  var newImage = pixelAdd ( image1, new ImageData(newdata, w, h) );
+  return newImage;
+}
